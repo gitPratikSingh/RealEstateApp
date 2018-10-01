@@ -5,7 +5,7 @@ The following is an enumerated list of each requirement layed out in the documen
 
 ### How to Test Admins
 * Log in with email and password.
-1. Log in as admin1@dm.com with password 'GoPack2018'.
+1. Log in as admin1@dm.com with password 'admin1@dm.com'.
 Success: you are now logged in as admin1@dm.com.
 
 * Edit their own profile.
