@@ -76,7 +76,7 @@ class HousesController < ApplicationController
   # DELETE /houses/1
   # DELETE /houses/1.json
   def destroy
-    if current_user.user_type == 1 || current_user.user_type == 2 && current_user.realtor.id == @house.realtor_id
+    if current_user.user_type == 1 || (current_user.user_type == 2 && current_user.realtor.id == @house.realtor_id)
       @house.destroy
       respond_to do |format|
         format.html { redirect_to houses_url, notice: 'House was successfully destroyed.' }

@@ -10,7 +10,7 @@ class House < ApplicationRecord
   validates :style, presence: true
   validates :list_price, :numericality => { :greater_than_or_equal_to => 0 }
   validates :num_of_floors, :numericality => { :greater_than_or_equal_to => 1 }
-  validates :basement, presence: true
+
   validates :current_owner, presence: true
 
 end
