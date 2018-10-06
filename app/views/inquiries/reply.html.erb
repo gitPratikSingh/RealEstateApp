@@ -1,0 +1,8 @@
+<%= form_tag({controller: "houses", action: "index"}, method: "get") do %>
+
+  <div class="field">
+    <%= label_tag(:q, "Reply") %>
+    <%= text_field_tag(:q) %>
+    <%= submit_tag("Submit") %>
+  </div>
+<% end %>

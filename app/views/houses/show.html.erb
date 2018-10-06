@@ -51,16 +51,39 @@
   <%= @house.realtor_contact %>
 </p>
 
-<% if current_user.user_type != 3 and current_user.user_type != 0%>
-<p>
-  <strong>Potential buyers:</strong>
-  <% @house.house_hunters.each do |house_hunters| %>
+<% if (current_user.user_type == 2 && current_user.realtor.real_estate_company_id == @house.realtor.real_estate_company_id) || current_user.user_type == 1  %>
+  <p>
+    <strong>Potential buyers:</strong>
+    <% @house.house_hunters.each do |house_hunters| %>
     <p><%= house_hunters.user.name %></p>
-  <% end %>
-</p>
-  <% if (current_user.user_type == 2 && current_user.realtor == @house.realtor) || current_user.user_type == 1  %>
-    <%= link_to 'Edit', edit_house_path(@house) %> |
     <% end %>
+  </p>
+  <p>
+    <strong>Inquiries</strong>
+    <table>
+      <thead>
+      <tr>
+      <th> Name </th>
+      <th> Subject </th>
+      <th> Message </th>
+      <th> Reply </th>
+      </tr>
+      </thead>
+      <tbody>
+    <% @house.inquiries.each do |inquiries| %>
+    <tr>
+    <td><%= inquiries.house_hunter.user.name %></td>
+    <td><%= inquiries.subject %></td>
+    <td><%= inquiries.message %></td>
+      <td><%= link_to 'Reply to User ', reply_path%></td>
+    </tr>
+    <% end %>
+    </tbody>
+    </table>
+  </p>
+<% end %>
+<% if (current_user.user_type == 2 && current_user.realtor == @house.realtor) || current_user.user_type == 1  %>
+    <%= link_to 'Edit', edit_house_path(@house) %> |
 <% end %>
 
 <% if current_user.user_type == 3 %>

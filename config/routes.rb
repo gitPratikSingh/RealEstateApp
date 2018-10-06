@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get 'houses/search' => 'houses#search', as: 'search_houses'
   get 'house_hunters/:hh_id/interest_list/:id/add_to_list/:house_id' => 'interest_lists#add_to_list', as: 'add_to_list'
   get 'house_hunters/:hh_id/inquiries/new/:house_id' => 'inquiries#create', as: 'new_house_hunter_inquiry_path'
-
+  get 'inquiries/reply' => 'inquiries#reply', as: 'reply'
   # get 'real_estate_companies/:id/potential_buyers', to: 'real_estate_companies#potential_buyers'
 
   resources :users

@@ -81,7 +81,8 @@ house_list.each do |location, square_footage, year_built, style, list_price, num
   @house = House.create(location: location, square_footage: square_footage, year_built: year_built, style: style, list_price: list_price,
                         num_of_floors: num_of_floors, basement: basement, current_owner: current_owner,
                         realtor_contact: realtor_object_list[count].user.phone,
-                        real_estate_company_id: realtor_object_list[count].real_estate_company_id)
+                        real_estate_company_id: realtor_object_list[count].real_estate_company_id,
+                        realtor_id: realtor_object_list[count].id)
   puts @house.inspect
   count = count + 1
 

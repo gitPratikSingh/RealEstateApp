@@ -1,6 +1,10 @@
 class InquiriesController < ApplicationController
   before_action :set_inquiry, only: [:show, :edit, :update, :destroy]
 
+  def reply
+
+  end
+
   # GET /inquiries
   # GET /inquiries.json
   def index
