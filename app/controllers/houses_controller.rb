@@ -40,6 +40,7 @@ class HousesController < ApplicationController
   # POST /houses.json
   def create
     @house = House.new(house_params)
+    @house.realtor = Realtor.find(house_params[:realtor_id])
     @house.potential_buyers_list = PotentialBuyersList.new(@house.id)
     @house.potential_buyers_list.save
     respond_to do |format|
@@ -76,14 +77,10 @@ class HousesController < ApplicationController
   # DELETE /houses/1
   # DELETE /houses/1.json
   def destroy
-    if current_user.user_type == 1 || (current_user.user_type == 2 && current_user.realtor.id == @house.realtor_id)
-      @house.destroy
-      respond_to do |format|
-        format.html { redirect_to houses_url, notice: 'House was successfully destroyed.' }
-        format.json { head :no_content }
-      end
-    else
-      # notify user they can't destroy this house
+    @house.destroy
+    respond_to do |format|
+      format.html { redirect_to houses_url, notice: 'House was successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
 
@@ -97,6 +94,6 @@ class HousesController < ApplicationController
     def house_params
       params.require(:house).permit(:location, :square_footage, :year_built, :style, :list_price,
       :num_of_floors, :basement, :current_owner, :realtor_contact, :real_estate_company_id, :list_price_low,
-                                    :list_price_high)
+                                    :list_price_high, :realtor_id)
     end
 end

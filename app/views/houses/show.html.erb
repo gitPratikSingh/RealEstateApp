@@ -58,7 +58,9 @@
     <p><%= house_hunters.user.name %></p>
   <% end %>
 </p>
-<%= link_to 'Edit', edit_house_path(@house) %> |
+  <% if (current_user.user_type == 2 && current_user.realtor == @house.realtor) || current_user.user_type == 1  %>
+    <%= link_to 'Edit', edit_house_path(@house) %> |
+    <% end %>
 <% end %>
 
 <% if current_user.user_type == 3 %>
