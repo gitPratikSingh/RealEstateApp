@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: 'users/registrations' }
+  devise_scope :user do
+    get 'login', to: "devise/sessions#new", as: "login"
+    get 'logout', to: "devise/sessions#destroy", as: "logout"
+    get 'signup', to: "users#new", as: "signup"
+  end
+
   get 'users/reset_user_type' => 'users#reset_user_type', as: 'reset_user_type'
   get 'house_hunters/set_user_type/:id' => 'house_hunters#set_user_type', as: 'set_type_house_hunter'
   get 'realtors/set_user_type/:id' => 'realtors#set_user_type', as: 'set_type_realtor'

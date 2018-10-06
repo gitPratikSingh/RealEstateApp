@@ -1,8 +1,8 @@
 class House < ApplicationRecord
   has_many :inquiries
-  has_many :house_hunters, through: :interest_lists
-  has_one :potential_buyers_list
   belongs_to :interest_list, optional: true
+  has_many :house_hunters
+  has_one :potential_buyers_list
   belongs_to :real_estate_company
   validates :location, presence: true
   validates :square_footage, presence: true, :numericality => { :greater_than_or_equal_to => 0 }

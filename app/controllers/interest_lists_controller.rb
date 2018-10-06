@@ -3,7 +3,10 @@ class InterestListsController < ApplicationController
 
   def add_to_list
     @interest_list.houses << House.find(params[:house_id])
+    @house = House.find(params[:house_id])
+    @house.house_hunters << HouseHunter.find(params[:hh_id])
     @interest_list.save
+    @house.save
   end
 
   # GET /interest_lists
