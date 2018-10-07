@@ -21,8 +21,12 @@ Success: You see whatever change you made persisted.
 
 * Create realtor and house hunter accounts.
 1. After logged in as admin1@dm.com, click "Admin Home Page".
-2. From the actions menu, you can click on the links "createRealtor" and "createHouseHunter" to create realtor and house hunter accounts.
-
+2. (i) If admin needs to create a househunter/realtor account for himself : From the actions menu, you can click on the links "createRealtor" and "createHouseHunter" to create realtor and house hunter accounts.
+   
+   (ii) If admin needs to create a househunter/realtor account for someone else : Go to the ViewAllUsers link to view all the users. If the user is already present in the system, use the "Make a HouseHunter Account" or "Make a Realtor Account" to 
+   create the required type of account. If the user is not registered in the system, admin needs to create a new user, using the "New User" link in the user list page. After creating the user the user will appear in the user list page and admin
+   can follow the earlier instructions to create househunter or realtor account for the newly created user.
+   
 * Create real estate company
 1. After logged in as admin1@dm.com, click "Admin Home Page".
 2. From the actions menu, you can click on the link "createRealEstateCompany" to create a Real Estate Company
