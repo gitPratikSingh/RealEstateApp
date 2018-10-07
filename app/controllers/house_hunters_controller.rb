@@ -34,20 +34,33 @@ class HouseHuntersController < ApplicationController
   # POST /house_hunters
   # POST /house_hunters.json
   def create
-    @house_hunter = HouseHunter.new(house_hunter_params)
-    if current_user.user_type != 1
-      @house_hunter.user = current_user
-    else
-      @house_hunter.user = User.find(house_hunter_params[:user_id])
+
+    if params[:create_for_user] != nil
+      params['house_hunter']['user_id'] = house_hunter_params[:create_for_user]
     end
+
+    puts params.inspect
+    @house_hunter = HouseHunter.new(house_hunter_params)
+
+    if current_user.user_type != 1 and params['create_by_admin'] == 0
+        @house_hunter.user = current_user
+    else
+        @house_hunter.user = User.find(house_hunter_params[:user_id])
+    end
+
     @house_hunter.interest_list = InterestList.new(@house_hunter.id)
 
     respond_to do |format|
       if @house_hunter.save
-        format.html { redirect_to @house_hunter, notice: 'House hunter was successfully created.' }
-        format.json { render :show, status: :created, location: @house_hunter }
-        puts @house_hunter.inspect
-        puts @house_hunter.interest_list.inspect
+
+        if house_hunter_params[:create_for_user] != nil
+          format.html { redirect_to users_path, notice: 'House hunter was successfully created.' }
+        else
+          format.html { redirect_to @house_hunter, notice: 'House hunter was successfully created.' }
+          format.json { render :show, status: :created, location: @house_hunter }
+        end
+
+
       else
         format.html { render :new }
         format.json { render json: @house_hunter.errors, status: :unprocessable_entity }

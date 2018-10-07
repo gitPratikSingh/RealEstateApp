@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
-<%=  @house_hunter.inspect %>
+<h4>House Hunter Profile</h4>
+
 <p>
   <strong>Name:</strong>
   <%= @house_hunter.user.name %>
@@ -20,5 +21,19 @@
   <%= @house_hunter.preferred_contact %>
 </p>
 
+
+<h4>House_Hunter Actions</h4>
+<table>
+  <tr>
+    <td><div><%= link_to "View House Hunter Profile", house_hunter_path(@house_hunter)%></div></td>
+    <td><div><%= link_to "View All Real Estate Companies", real_estate_companies_path %></div></td>
+    <td><div><%= link_to "View All Houses", houses_path %></div></td>
+    <td><div><%= link_to "Search Houses", search_houses_path %></div></td>
+    <td><div><%= link_to "View My Inquiries", house_hunter_inquiries_path(@house_hunter) %></div></td>
+    <td><div><%= link_to "View My House Interest List", house_hunter_interest_list_path(@house_hunter,@house_hunter.interest_list.id)%></div></td>
+  </tr>
+</table>
+
+<br>
 <%= link_to 'Edit', edit_house_hunter_path(@house_hunter) %> |
 <%= link_to 'Back to Home', root_path %>

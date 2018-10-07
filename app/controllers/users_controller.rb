@@ -38,8 +38,14 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
+        if @user.admin
+          format.html { redirect_to :users_path, notice: 'User was successfully created.' }
+          format.json { render :show, status: :created, location: @user }
+        else
+          format.html { redirect_to @user, notice: 'User was successfully created.' }
+          format.json { render :show, status: :created, location: @user }
+        end
+
       else
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -71,11 +77,6 @@ class UsersController < ApplicationController
         format.json { head :no_content }
       end
     else
-
-      puts @user.inspect
-      puts @user.house_hunter.inspect
-      puts @user.house_hunter.interest_list
-
 
       @user.destroy
       respond_to do |format|

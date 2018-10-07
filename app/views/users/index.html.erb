@@ -9,7 +9,7 @@
       <th>Name</th>
       <th>CreatedAt</th>
       <th>Phone</th>
-      <th>IsAdmin? </th>
+      <th>IsAdmin </th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -25,6 +25,23 @@
 
         <td><%= link_to 'Edit', edit_user_path(user) %></td>
         <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+
+          <% if user.house_hunter == nil %>
+            <td><div><%= link_to "Make a HouseHunter Account", new_house_hunter_path(create_for_user: user)%></div></td>
+          <% end %>
+
+          <% if user.house_hunter != nil %>
+            <td><div><%= link_to "Go to the HouseHunter Profile",  house_hunter_path(user.house_hunter.id) %></div></td>
+          <% end %>
+
+          <% if user.realtor == nil %>
+            <td><div><%= link_to "Make a Realtor Account", new_realtor_path(create_for_user: user)%></div></td>
+          <% end %>
+
+          <% if user.realtor != nil %>
+            <td><div><%= link_to "Go to Your Realtor Profile",  realtor_path(user.realtor.id) %></div></td>
+          <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -32,4 +49,6 @@
 
 <br>
 
+<%= link_to 'New User', new_admin_path %>
 <%= link_to 'Back', :back %>
+

@@ -16,17 +16,17 @@ class AdminsController < ApplicationController
 
   def new
     @admin = Admin.new
+    @user = User.new
   end
 
   def create
-    @admin = Admin.new
 
-    @admin.name = current_user.name
-    @admin.email = current_user.email
-    @admin.user = current_user
+    @user = User.new(user_params)
 
-    if @admin.save
-      redirect_to @admin
+    if @user.save
+      respond_to do |format|
+        format.html { redirect_to users_path, notice: 'New user created' }
+      end
     else
       render 'new'
     end
@@ -63,6 +63,10 @@ class AdminsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_admin
     @admin = Admin.find(params[:id])
+  end
+
+  def user_params
+    params.require(:admins).permit(:email, :name, :password, :password_confirmation, :phone, :user_type)
   end
 
 end

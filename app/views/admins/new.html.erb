@@ -1,13 +1,50 @@
 <h1>New Admin</h1>
 
+<h2>Sign up</h2>
+
 <%= form_for :admins, url: admins_path do |f| %>
-  <p>
-    <%= f.label :name  %><br>
-    <%= f.text_field :name  %><br>
-  </p>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being created:</h2>
 
-  <p>
-    <%= f.submit %>
-  </p>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :phone %>
+    <%= f.text_field :phone, autocomplete: "off" %>
+  </div>
+
+  <%= f.hidden_field :user_type, value: 0 %>
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
 <% end %>

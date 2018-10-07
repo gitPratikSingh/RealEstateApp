@@ -1,3 +1,4 @@
+<%= params.inspect %>
 <%= form_with(model: realtor, local: true) do |form| %>
   <% if realtor.errors.any? %>
     <div id="error_explanation">
@@ -11,17 +12,25 @@
     </div>
   <% end %>
 
+  <% if params['create_for_user'] != nil %>
+    <h4> Creating realtor account for <%= User.find(params['create_for_user']).name %> </h4>
+    <%= form.hidden_field :user_id, value: params['create_for_user'] %>
+    <%= form.hidden_field :create_by_admin, value: 1 %>
+  <% end %>
+
   <div class="field">
     <%= form.label :real_estate_company_id %>
     <%= form.collection_select(:real_estate_company_id, RealEstateCompany.all, :id, :name, :include_blank => true) %>
   </div>
 
-  <% if current_user.user_type == 1 #admin type %>
+  <% if current_user.user_type == 1 and params['create_for_user'] == nil #admin type %>
     <div class="field">
       <%= form.label :user %>
       <%= form.collection_select(:user_id, User.all, :id, :name) %>
     </div>
+    <%= form.hidden_field :create_by_admin, value: 0 %>
   <% end %>
+
 
   <div class="actions">
     <%= form.submit %>

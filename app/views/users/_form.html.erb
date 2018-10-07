@@ -26,6 +26,13 @@
     <%= form.text_field :password %>
   </div>
 
+  <div class="field">
+    <%= form.label :phone %>
+    <%= form.text_field :phone %>
+  </div>
+
+  <%= form.hidden_field :user_type, value:0 %>
+
   <div class="actions">
     <%= form.submit %>
   </div>

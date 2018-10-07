@@ -38,13 +38,17 @@ class RealtorsController < ApplicationController
   # POST /realtors
   # POST /realtors.json
   def create
+    puts params.inspect
+
     @realtor = Realtor.new(realtor_params)
 
-    if (current_user.user_type != 1) #We do not want admins to automatically bind created users to account.
+    if (current_user.user_type != 1 and params['create_by_admin'] == 0) #We do not want admins to automatically bind created users to account.
       @realtor.user = current_user
     else
       @realtor.user = User.find(realtor_params[:user_id])
     end
+
+    puts @realtor.user.inspect
     respond_to do |format|
       if @realtor.save
         format.html { redirect_to @realtor, notice: 'Realtor was successfully created.' }
