@@ -72,6 +72,11 @@ class UsersController < ApplicationController
       end
     else
 
+      puts @user.inspect
+      puts @user.house_hunter.inspect
+      puts @user.house_hunter.interest_list
+
+
       @user.destroy
       respond_to do |format|
         format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
