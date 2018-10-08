@@ -46,6 +46,14 @@ class RealEstateCompaniesController < ApplicationController
   def destroy
     if (current_user && current_user.admin)
       @realEstateCompany = RealEstateCompany.find(params['id'])
+
+      Realtor.where(real_estate_company_id: @realEstateCompany.id).each do |item|
+        item.real_estate_company_id = nil
+        item.save
+
+        puts item.inspect
+      end
+
       @realEstateCompany.destroy
       respond_to do |format|
         format.html { redirect_to real_estate_companies_url, notice: 'Real Estate Company was successfully destroyed.' }
