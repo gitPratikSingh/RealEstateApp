@@ -40,4 +40,5 @@ Rails.application.routes.draw do
 
   resources :admins
   resources :real_estate_companies
+
 end
