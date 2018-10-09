@@ -2,6 +2,7 @@ class House < ApplicationRecord
   has_many :inquiries
   belongs_to :interest_list, optional: true
   has_many :house_hunters
+
   has_one :potential_buyers_list
   belongs_to :real_estate_company
   belongs_to :realtor, optional: true
@@ -14,4 +15,5 @@ class House < ApplicationRecord
 
   validates :current_owner, presence: true
 
+  has_many_attached :images
 end

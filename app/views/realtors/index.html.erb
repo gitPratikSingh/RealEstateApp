@@ -18,10 +18,10 @@
         <td><%= realtor.user.name %></td>
         <td><%= realtor.user.email %></td>
         <td><%= realtor.user.phone %></td>
-        <% if realtor.real_estate_company_id != nil %>
+        <% if realtor.real_estate_company != nil %>
           <td> <%= realtor.real_estate_company.name %> </td>
         <% end %>
-        <% if realtor.real_estate_company_id == nil %>
+        <% if realtor.real_estate_company == nil %>
           <td> No Company Assigned </td>
         <% end %>
         <td><%= link_to 'Show', realtor %></td>

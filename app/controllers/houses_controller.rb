@@ -94,6 +94,6 @@ class HousesController < ApplicationController
     def house_params
       params.require(:house).permit(:location, :square_footage, :year_built, :style, :list_price,
       :num_of_floors, :basement, :current_owner, :realtor_contact, :real_estate_company_id, :list_price_low,
-                                    :list_price_high, :realtor_id)
+                                    :list_price_high, :realtor_id, images: [])
     end
 end

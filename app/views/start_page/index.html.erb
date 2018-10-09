@@ -7,13 +7,13 @@
     <tr>
 
       <% if current_user.house_hunter == nil %>
-      <td><div><%= link_to "Make a HouseHunter Account", new_house_hunter_path%></div></td>
+      <td><div><%= link_to "Make a HouseHunter Account", new_house_hunter_path('create_for_user'=>current_user)%></div></td>
       <% end %>
       <% if current_user.house_hunter != nil %>
       <td><div><%= link_to "Go to Your HouseHunter Profile",  set_type_house_hunter_path(current_user.house_hunter.id) %></div></td>
       <% end %>
       <% if current_user.realtor == nil %>
-        <td><div><%= link_to "Make a Realtor Account", new_realtor_path%></div></td>
+        <td><div><%= link_to "Make a Realtor Account", new_realtor_path('create_for_user'=>current_user)%></div></td>
       <% end %>
       <% if current_user.realtor != nil %>
         <td><div><%= link_to "Go to Your Realtor Profile",  set_type_realtor_path(current_user.realtor.id) %></div></td>

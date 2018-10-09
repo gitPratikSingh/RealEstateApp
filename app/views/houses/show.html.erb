@@ -51,6 +51,13 @@
   <%= @house.realtor_contact %>
 </p>
 
+<p>
+  <strong>House Photos</strong>
+  <% @house.images.each do |image| %>
+  <p><%= image_tag image %></p>
+  <%end %>
+</p>
+
 <% if (current_user.user_type == 2 && current_user.realtor.real_estate_company_id == @house.realtor.real_estate_company_id) || current_user.user_type == 1  %>
   <p>
     <strong>Potential buyers:</strong>

@@ -31,14 +31,11 @@ class RealtorsController < ApplicationController
   def edit
   end
 
-  # def edit_company
-  #   @real_estate_company = Realtor.real_estate_company_id
-  # end
-
   # POST /realtors
   # POST /realtors.json
   def create
-    puts params.inspect
+    # puts params.inspect
+    # puts realtor_params.inspect
 
     @realtor = Realtor.new(realtor_params)
 
@@ -48,7 +45,7 @@ class RealtorsController < ApplicationController
       @realtor.user = User.find(realtor_params[:user_id])
     end
 
-    puts @realtor.user.inspect
+    # puts @realtor.user.inspect
     respond_to do |format|
       if @realtor.save
         format.html { redirect_to @realtor, notice: 'Realtor was successfully created.' }

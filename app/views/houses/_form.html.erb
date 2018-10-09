@@ -26,12 +26,6 @@
 
   <% if current_user.user_type == 2 #realtor type %>
     <div class="field">
-<!--      Attempting to display Real Estate Company of the current user, if they're a Realtor.
-          Currently just passing the company_id in a hidden field.
--->
-      <%#= form.label :real_estate_company_id %>
-      <%#= form.label RealEstateCompany, current_user.realtor, :name %>
-      <%#= form.select(:real_estate_company_id, [current_user.realtor.real_estate_company_id, ]) %>
       <%= form.hidden_field :real_estate_company_id, { :value => current_user.realtor.real_estate_company_id } %>
     </div>
     <div class="field">
@@ -39,10 +33,9 @@
       <%= form.select(:realtor_contact, [current_user.phone, current_user.email]) %>
       <%= form.hidden_field :realtor_id, { :value => current_user.realtor.id } %>
     </div>
-
   <% end %>
 
-    <div class="field">
+  <div class="field">
     <%= form.label :location %>
     <%= form.text_field :location %>
   </div>
@@ -81,6 +74,8 @@
     <%= form.label :current_owner %>
     <%= form.text_field :current_owner %>
   </div>
+
+  <%= form.file_field :images, multiple: true %>
 
   <div class="actions">
     <%= form.submit %>
