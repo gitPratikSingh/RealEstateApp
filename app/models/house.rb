@@ -1,9 +1,9 @@
 class House < ApplicationRecord
-  has_many :inquiries
+  has_many :inquiries,  dependent: :destroy
   belongs_to :interest_list, optional: true
   has_many :house_hunters
 
-  has_one :potential_buyers_list
+  has_one :potential_buyers_list, dependent: :destroy
   belongs_to :real_estate_company
   belongs_to :realtor, optional: true
   validates :location, presence: true

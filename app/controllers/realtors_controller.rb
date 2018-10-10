@@ -39,22 +39,37 @@ class RealtorsController < ApplicationController
 
     @realtor = Realtor.new(realtor_params)
 
-    if (current_user.user_type != 1 and params['create_by_admin'] == 0) #We do not want admins to automatically bind created users to account.
+    if (current_user.user_type != 1 and params['create_by_admin'] == 0) || realtor_params[:user_id] == nil #We do not want admins to automatically bind created users to account.
       @realtor.user = current_user
     else
       @realtor.user = User.find(realtor_params[:user_id])
     end
 
+    @realtorExists = Realtor.where('user_id': @realtor.user.id)
+
     # puts @realtor.user.inspect
-    respond_to do |format|
-      if @realtor.save
-        format.html { redirect_to @realtor, notice: 'Realtor was successfully created.' }
-        format.json { render :show, status: :created, location: @realtor }
-      else
-        format.html { render :new }
-        format.json { render json: @realtor.errors, status: :unprocessable_entity }
+
+    if @realtorExists.empty?
+
+      respond_to do |format|
+        if @realtor.save
+          format.html { redirect_to @realtor, notice: 'Realtor was successfully created.' }
+          format.json { render :show, status: :created, location: @realtor }
+
+          @realtor.user.user_type = 2 # set user type to realtor after creation
+          @realtor.user.save          # save realtor to current user
+        else
+          format.html { render :new }
+          format.json { render json: @realtor.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to new_realtor_path, notice: 'Realtor account already exists for this user.' }
+        format.json { head :no_content }
       end
     end
+
   end
 
   # PATCH/PUT /realtors/1

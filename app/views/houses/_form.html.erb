@@ -13,15 +13,11 @@
 
   <% if current_user.user_type == 1 #admin type %>
     <div class="field">
-      <%= form.label :realtor_contact %>
-      <% realtor_phone_name_array = Realtor.all.collect { |realtor| [realtor.user.name, realtor.user.phone]} %>
-      <%= form.select(:realtor_contact, options_for_select(realtor_phone_name_array)) %>
+      <%= form.label :realtor %>
+      <% realtor_id_name_array = Realtor.all.collect { |realtor| [realtor.user.name, realtor.id]} %>
+      <%= form.select(:realtor_id, options_for_select(realtor_id_name_array)) %>
     </div>
 
-    <div class="field">
-      <%= form.label :real_estate_company_id %>
-      <%= form.collection_select(:real_estate_company_id, RealEstateCompany.all, :id, :name) %>
-    </div>
   <% end %>
 
   <% if current_user.user_type == 2 #realtor type %>
@@ -81,3 +77,6 @@
     <%= form.submit %>
   </div>
 <% end %>
+
+<%= link_to 'Back', :back %> |
+<%= link_to 'Home', root_path %> |

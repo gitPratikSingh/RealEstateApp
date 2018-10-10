@@ -3,5 +3,5 @@
 <% @interest_list.houses.each do |house| %>
   <p><%= house.location %></p>
 <% end %>
-<%= link_to 'Back', houses_path %>
-<%= link_to 'Back to Root', root_path %>
+<%= link_to 'Back', :back %> |
+<%= link_to 'Home', root_path %>

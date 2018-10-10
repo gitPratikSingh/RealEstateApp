@@ -41,6 +41,12 @@ class HousesController < ApplicationController
   def create
     @house = House.new(house_params)
     @house.realtor = Realtor.find(house_params[:realtor_id])
+    if house_params[:realtor_contact] == nil
+      @house.realtor_contact = @house.realtor.user.phone
+    end
+    if house_params[:real_estate_company_id] == nil
+      @house.real_estate_company = @house.realtor.real_estate_company
+    end
     @house.potential_buyers_list = PotentialBuyersList.new(@house.id)
     @house.potential_buyers_list.save
     respond_to do |format|
@@ -59,7 +65,7 @@ class HousesController < ApplicationController
   # PATCH/PUT /houses/1
   # PATCH/PUT /houses/1.json
   def update
-    if current_user.user_type == 1 || current_user.user_type == 2 && current_user.realtor.id == @house.realtor_id
+    if current_user.user_type == 1 || (current_user.user_type == 2 && current_user.realtor.id == @house.realtor_id) || (current_user.realtor && current_user.realtor.real_estate_company_id && current_user.realtor.real_estate_company_id == @house.real_estate_company_id)
       respond_to do |format|
         if @house.update(house_params)
           format.html { redirect_to @house, notice: 'House was successfully updated.' }
@@ -71,6 +77,9 @@ class HousesController < ApplicationController
       end
     else
       # notify user they can't update this house
+      respond_to do |format|
+        format.html { render :edit , notice: 'You cannot update this house.' }
+      end
     end
   end
 

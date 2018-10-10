@@ -40,7 +40,7 @@
           <% end %>
 
           <% if user.realtor != nil %>
-            <td><div><%= link_to "Go to Your Realtor Profile",  realtor_path(user.realtor.id) %></div></td>
+            <td><div><%= link_to "Go to the Realtor Profile",  realtor_path(user.realtor.id) %></div></td>
           <% end %>
       </tr>
     <% end %>
@@ -51,4 +51,4 @@
 
 <%= link_to 'New User', new_admin_path %>
 <%= link_to 'Back', :back %>
-
+<%= link_to 'Back to Home', root_path %>

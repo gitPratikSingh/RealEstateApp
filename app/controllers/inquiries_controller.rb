@@ -15,6 +15,11 @@ class InquiriesController < ApplicationController
     elsif current_user.user_type =1
       @inquiries = Inquiry.all
     end
+
+    if current_user.admin != nil
+      @inquiries = Inquiry.all
+    end
+
   end
 
   # GET /inquiries/1

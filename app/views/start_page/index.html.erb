@@ -1,5 +1,4 @@
-<h1>StartPage#index</h1>
-<p>This is the homepage for our Realtor App. From here, we need to allow users to log in or make a user.</p>
+<h1>Real Estate Application</h1>
 
 <% if current_user.user_type == 0 || current_user.user_type == 1 #No Type or admin type%>
   <h4>No Role Chosen!</h4>
@@ -28,10 +27,14 @@
   <table>
     <tr>
       <td><div><%= link_to "View Realtor Profile", realtor_path(current_user.realtor) %></div></td>
+      <td><div><%= link_to "Edit Realtor Profile", edit_realtor_path(current_user.realtor) %></div></td>
       <td><div><%= link_to "View All Houses", houses_path %></div></td>
       <td><div><%= link_to "List House", new_house_path %></div></td>
-<!--      <td><div><%#= link_to "Edit Company", realtor_edit_company_path(current_user.realtor) %></div></td>-->
-    </tr>
+      <td><dib><%= link_to "Create Company", new_real_estate_company_path %></dib></td>
+      <% if current_user.realtor && current_user.realtor.real_estate_company %>
+        <td><div><%= link_to "Edit Company", edit_real_estate_company_path(current_user.realtor.real_estate_company) %></div></td>
+      <% end %>
+      </tr>
   </table>
 <% end %>
 
@@ -41,6 +44,7 @@
   <table>
     <tr>
       <td><div><%= link_to "View House Hunter Profile", house_hunter_path(current_user.house_hunter)%></div></td>
+      <td><div><%= link_to "Edit House Hunter", edit_house_hunter_path(current_user.house_hunter) %></div></td>
       <td><div><%= link_to "View All Real Estate Companies", real_estate_companies_path %></div></td>
       <td><div><%= link_to "View All Houses", houses_path %></div></td>
       <td><div><%= link_to "Search Houses", search_houses_path %></div></td>

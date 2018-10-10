@@ -39,10 +39,10 @@ class HouseHuntersController < ApplicationController
       params['house_hunter']['user_id'] = house_hunter_params[:create_for_user]
     end
 
-    puts params.inspect
+    # puts params.inspect
     @house_hunter = HouseHunter.new(house_hunter_params)
 
-    if current_user.user_type != 1 and params['create_by_admin'] == 0
+    if (current_user.user_type != 1 and params['create_by_admin'] == 0) || house_hunter_params[:user_id] == nil
         @house_hunter.user = current_user
     else
         @house_hunter.user = User.find(house_hunter_params[:user_id])
@@ -50,20 +50,31 @@ class HouseHuntersController < ApplicationController
 
     @house_hunter.interest_list = InterestList.new(@house_hunter.id)
 
-    respond_to do |format|
-      if @house_hunter.save
+    @hhExists = HouseHunter.where('user_id': @house_hunter.user.id)
 
-        if house_hunter_params[:create_for_user] != nil
-          format.html { redirect_to users_path, notice: 'House hunter was successfully created.' }
+    # puts @realtor.user.inspect
+
+    if @hhExists.empty?
+
+      respond_to do |format|
+        if @house_hunter.save
+          if house_hunter_params[:create_for_user] != nil
+            format.html { redirect_to users_path, notice: 'House hunter was successfully created.' }
+          else
+            format.html { redirect_to @house_hunter, notice: 'House hunter was successfully created.' }
+            format.json { render :show, status: :created, location: @house_hunter }
+          end
+          @house_hunter.user.user_type = 3 # set user type to house_hunter after creation
+          @house_hunter.user.save          # save house_hunter to current user
         else
-          format.html { redirect_to @house_hunter, notice: 'House hunter was successfully created.' }
-          format.json { render :show, status: :created, location: @house_hunter }
+          format.html { render :new }
+          format.json { render json: @house_hunter.errors, status: :unprocessable_entity }
         end
-
-
-      else
-        format.html { render :new }
-        format.json { render json: @house_hunter.errors, status: :unprocessable_entity }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to new_house_hunter_path, notice: 'House Hunter account already exists for this user.' }
+        format.json { head :no_content }
       end
     end
   end

@@ -53,9 +53,11 @@
 
 <p>
   <strong>House Photos</strong>
-  <% @house.images.each do |image| %>
-  <p><%= image_tag image %></p>
-  <%end %>
+  <% if @house.images != nil %>
+    <% @house.images.each do |image| %>
+    <p><%= image_tag image %></p>
+    <% end %>
+  <% end %>
 </p>
 
 <% if (current_user.user_type == 2 && current_user.realtor.real_estate_company_id == @house.realtor.real_estate_company_id) || current_user.user_type == 1  %>
@@ -100,4 +102,5 @@
                                                        id: current_user.house_hunter.interest_list.id,
                                                        house_id: @house ) %>
 <% end %>
-<%= link_to 'Back', houses_path %>
+<%= link_to 'Back', :back %> |
+<%= link_to 'Home', root_path %> |

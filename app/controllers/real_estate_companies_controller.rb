@@ -21,7 +21,7 @@ class RealEstateCompaniesController < ApplicationController
   end
 
   def edit
-    if (current_user && current_user.admin)
+    if (current_user && current_user.admin || current_user.user_type == 2)
       @realEstateCompany =RealEstateCompany.find(params['id'])
     else
       respond_to do |format|
