@@ -78,6 +78,10 @@ class UsersController < ApplicationController
       end
     else
 
+      if @user.realtor != nil
+        @user.realtor.destroy
+      end
+
       @user.destroy
       respond_to do |format|
         format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
