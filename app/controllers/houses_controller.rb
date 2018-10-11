@@ -78,7 +78,7 @@ class HousesController < ApplicationController
     else
       # notify user they can't update this house
       respond_to do |format|
-        format.html { render :edit , notice: 'You cannot update this house.' }
+        format.html { redirect_to edit_house_path(@house), notice: 'You cannot update this house.' }
       end
     end
   end
