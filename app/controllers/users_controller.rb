@@ -79,6 +79,8 @@ class UsersController < ApplicationController
     else
 
       if @user.realtor != nil
+        @house = House.where(realtor_id: @user.realtor).first()
+        @house.destroy
         @user.realtor.destroy
       end
 
