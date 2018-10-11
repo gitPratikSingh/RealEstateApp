@@ -33,7 +33,7 @@
       <td><%= house.current_owner %></td>
       <td><%= house.realtor_contact %></td>
       <td><%= link_to 'Show', house %></td>
-      <% if (current_user.user_type == 2 && current_user.realtor == house.realtor) || current_user.user_type == 1  %>
+      <% if (current_user.user_type == 2 && current_user.realtor == house.realtor) || current_user.user_type == 1 || (current_user.realtor && current_user.realtor.real_estate_company_id && current_user.realtor.real_estate_company_id == house.real_estate_company_id) %>
       <td><%= link_to 'Edit', edit_house_path(house) %></td>
       <td><%= link_to 'Destroy', house, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       <% end %>
